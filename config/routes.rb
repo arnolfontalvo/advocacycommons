@@ -61,6 +61,7 @@ Rails.application.routes.draw do
     collection do
       resources :imports, only: [:new, :create] do
         get :find, on: :collection
+        get :matching, on: :collection
       end
     end
     resources :attendances

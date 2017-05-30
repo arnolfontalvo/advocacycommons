@@ -33,6 +33,9 @@ class ImportsController < ApplicationController
     end
   end
 
+  def matching
+  end
+
   private
 
   def validate_facebook_auth
