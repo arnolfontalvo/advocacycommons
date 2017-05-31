@@ -57,6 +57,7 @@ gem 'jquery-ui-rails', '~> 5.0.4'
 gem 'jbuilder', '~> 2.5'
 gem 'roar'
 gem 'react_on_rails'
+gem "webpacker_lite"
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'

@@ -4,8 +4,15 @@
     <title>Affinity</title>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
+    <%= stylesheet_pack_tag('app-bundle',
+                            media: 'all',
+                            'data-turbolinks-track': true) %>
+
+    <%= javascript_pack_tag('vendor-bundle', 'data-turbolinks-track': true) %>
+    <%= javascript_pack_tag('app-bundle', 'data-turbolinks-track': true) %>
+
+    <%= csrf_meta_tags %>
+
     <script src="https://use.fontawesome.com/9913cefd51.js"></script>
   </head>
 
@@ -28,5 +35,6 @@
     </div>
     <% end %>
     <%= yield %>
+    <%= redux_store_hydration_data %>
   </body>
 </html>
