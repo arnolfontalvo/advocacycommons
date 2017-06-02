@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170531203724) do
+ActiveRecord::Schema.define(version: 20170601211630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -726,6 +726,29 @@ ActiveRecord::Schema.define(version: 20170531203724) do
     t.index ["referrer_data_id"], name: "index_submissions_on_referrer_data_id", using: :btree
   end
 
+  create_table "taggings", force: :cascade do |t|
+    t.string   "identifiers"
+    t.string   "origin_system"
+    t.string   "item_type"
+    t.integer  "tag_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "identifiers"
+    t.string   "origin_system"
+    t.string   "description"
+    t.string   "name"
+    t.integer  "creator_id"
+    t.integer  "modified_by_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["creator_id"], name: "index_tags_on_creator_id", using: :btree
+    t.index ["modified_by_id"], name: "index_tags_on_modified_by_id", using: :btree
+  end
+
   create_table "targets", force: :cascade do |t|
     t.string   "title"
     t.string   "organization"
@@ -819,5 +842,6 @@ ActiveRecord::Schema.define(version: 20170531203724) do
   add_foreign_key "signatures", "people"
   add_foreign_key "signatures", "petitions"
   add_foreign_key "signatures", "referrer_data"
+  add_foreign_key "taggings", "tags"
   add_foreign_key "twitter_shares", "share_pages"
 end

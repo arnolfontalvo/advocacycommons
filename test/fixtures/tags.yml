@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  identifiers: MyString
+  origin_system: MyString
+  description: MyString
+  name: MyString
+  creator: one
+  modified_by: one
+  taggings: one
+
+two:
+  identifiers: MyString
+  origin_system: MyString
+  description: MyString
+  name: MyString
+  creator: two
+  modified_by: two
+  taggings: two
