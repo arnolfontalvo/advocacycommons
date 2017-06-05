@@ -62,6 +62,7 @@ Rails.application.routes.draw do
 
     resources :members do
       resources :events
+      resources :tags, only: [:create, :destroy], controller: 'membership_tags'
     end
     resources :memberships, only: [:index]
 
@@ -87,6 +88,9 @@ Rails.application.routes.draw do
 
   resources :dashboard, only: [:index]
 
+  resources :memberships, only: [] do
+    resources :tags, only: [:create, :destroy], controller: 'membership_tags'
+  end
 
   resources :profile, only: [:index]
 
