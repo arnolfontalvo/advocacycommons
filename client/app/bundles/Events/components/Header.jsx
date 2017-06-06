@@ -8,9 +8,9 @@ class Header extends Component {
 
     return(
       <div className='page-header'>
-        <div className="row container">
+        <div className="row container" style={{ alignItems: 'center' }}>
           <div className="col-10">
-            <h2>
+            <h2 style={{ margin: 0 }}>
               <a href="/" className="affinity-logo"><img src="/images/affinity-logo.svg" width="230" /></a>
               <small style={{ position: 'relative', bottom: '-5px', marginLeft: '5px' }}>
                 {this.props.currentGroup.name}
