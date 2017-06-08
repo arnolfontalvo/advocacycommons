@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import _ from 'lodash';
 import { groupPath } from '../utils/Pathnames';
-import { membershipPath } from '../utils/Pathnames';
+import { membershipWithoutGroupPath } from '../utils/Pathnames';
 
 class Tags extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ class Tags extends Component {
     if (this.props.groupId) {
       tags_path = groupPath(this.props.groupId)
     } else if (this.props.membershipId) {
-      tags_path = membershipPath(this.props.membershipId)
+      tags_path = membershipWithoutGroupPath(this.props.membershipId)
     }
     return tags_path
   }
