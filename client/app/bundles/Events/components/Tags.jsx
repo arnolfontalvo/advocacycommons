@@ -30,7 +30,7 @@ class Tags extends Component {
   tagResourceData() {
     let resource_type = '';
     let resource_id = '';
-    const { groupId, eventId, membershipId } = this.props
+    const { groupId, eventId } = this.props
 
     if (groupId) {
       resource_type = 'group';
@@ -38,11 +38,7 @@ class Tags extends Component {
     } else if (eventId) {
       resource_type = 'event';
       resource_id = eventId;
-    } else if (membershipId) {
-      resource_type = 'membership';
-      resource_id = membershipId;
-    }
-
+    } 
     return { resource_type, resource_id }
   }
 
@@ -97,6 +93,12 @@ class Tags extends Component {
     this.setState({ isEditing: true });
   }
 
+  handleClick(e) {
+    e.preventDefault();
+    this.props.dispatch(push('/groups/:groupId/affiliates'));
+  }
+
+
   showTags() {
     const { tags } = this.state;
     return (
@@ -105,6 +107,7 @@ class Tags extends Component {
           key={id}
           onClick={() => (this.addTagFilter(name))}>
           {name}
+        
 
           <span
             className='tag-action--remove'

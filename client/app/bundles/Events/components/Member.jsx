@@ -64,6 +64,7 @@ class Member extends Component {
       return <Tags tags={tags} membershipId={membershipId} />
   }
 
+
   render() {
     const { member, role, id } = this.props;
 
