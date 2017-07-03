@@ -31,7 +31,9 @@ class Dashboard extends Component {
     const { attendances } = this.state;
 
     if (!attendances.length)
-      return null
+      return (
+        <div><h3>Error</h3></div>
+      )
 
     return (
       <div>
@@ -77,7 +79,10 @@ class Dashboard extends Component {
         {this.hasActivity() && <h2>Activity Feed</h2> || <h4> There's no recent activity for this group.</h4>}
         {this.hasActivity() && <hr />}
 
-        { !!sync && !!sync.data && <SyncActivityFeed sync={sync} />}
+        { (!!sync && !!sync.data) && <SyncActivityFeed sync={sync} />}
+        <div className='list-group'>
+          <h3>test!</h3>
+        </div>
 
         {(!!events.updated.length || !!events.created.length) && <h3>Events</h3>}
         <div className='list-group'>
