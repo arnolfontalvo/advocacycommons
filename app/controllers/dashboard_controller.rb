@@ -3,7 +3,6 @@ class DashboardController < ApplicationController
 
   def activities
     @activities = PublicActivity::Activity.all
-
   end
 
   def show
