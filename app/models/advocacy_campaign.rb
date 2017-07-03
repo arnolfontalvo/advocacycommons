@@ -1,6 +1,7 @@
 class AdvocacyCampaign < ApplicationRecord
   belongs_to :creator, class_name: "Person"
   belongs_to :modified_by, class_name: "Person"
+  
 
   validates_presence_of :creator
 

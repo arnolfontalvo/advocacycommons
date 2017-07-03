@@ -1,7 +1,9 @@
 class Membership < ApplicationRecord
+  include PublicActivity::Model
+  tracked
   acts_as_taggable
   has_paper_trail
-  
+
   belongs_to :group
   belongs_to :person
   has_many :notes, as: :notable

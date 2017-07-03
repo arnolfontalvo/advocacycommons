@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'activities/index'
+
   root to: 'static#index'
 
   use_doorkeeper do
