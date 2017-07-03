@@ -7,13 +7,12 @@ import EventActivityFeed from '../components/EventActivityFeed';
 import AttendanceActivityFeed from '../components/AttendanceActivityFeed';
 import PersonActivityFeed from '../components/PersonActivityFeed';
 import SyncActivityFeed from '../components/SyncActivityFeed';
-import ActivityFeed from '../components/ActivityFeed';
 import { fetchGroup, addAlert } from '../actions';
 import { client, dashboardPath } from '../utils';
 
 class Dashboard extends Component {
   state = { events: { updated: [], created: [] }, attendances: [],
-    people: { updated: [], created: [] }, sync: {}, activities: []
+    people: { updated: [], created: [] }, sync: {}
   }
 
   componentWillMount() {
@@ -55,23 +54,9 @@ class Dashboard extends Component {
       || !! (sync && sync.data)
   }
 
-  hasActivity2() {
-    const { activities } = this.state;
-    if (!activities.all)
-      return null
-
-    return (
-      <div>
-        <br />
-        <h3>New Records</h3>
-        <ActivityFeed activities={activities} />
-      </div>
-    )
-  }
-
   render() {
     const { attributes } = this.props.group;
-    const { events, attendances, people, sync, activities } = this.state;
+    const { events, attendances, people, sync } = this.state;
 
     if(!attributes) { return null }
 
@@ -89,20 +74,10 @@ class Dashboard extends Component {
 
         {attributes.description && <br />}
 
-        {this.hasActivity2() && <h2>Activity Feed2</h2> || <h4> There's no recent activity for this group..</h4>}
-        {this.hasActivity2() && <hr />}
-        { !!activities && !!activities.all && <h3>look</h3> }
-        <div className='list-group'>
-          <ActivityFeed activities={activities}/>
-        </div>
-
-
         {this.hasActivity() && <h2>Activity Feed</h2> || <h4> There's no recent activity for this group.</h4>}
         {this.hasActivity() && <hr />}
 
         { !!sync && !!sync.data && <SyncActivityFeed sync={sync} />}
-
-
 
         {(!!events.updated.length || !!events.created.length) && <h3>Events</h3>}
         <div className='list-group'>
