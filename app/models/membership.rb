@@ -1,6 +1,4 @@
 class Membership < ApplicationRecord
-  include PublicActivity::Model
-  tracked
   acts_as_taggable
   has_paper_trail
 

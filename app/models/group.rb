@@ -1,6 +1,4 @@
 class Group < ApplicationRecord
-  include PublicActivity::Model
-  tracked
   has_paper_trail
   acts_as_taggable
 

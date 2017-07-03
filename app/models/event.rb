@@ -1,7 +1,5 @@
 class Event < ApplicationRecord
   include Api::Identifiers
-  include PublicActivity::Model
-  tracked
   has_paper_trail ignore: [:created_at, :updated_at]
   acts_as_taggable
   
