@@ -16,7 +16,7 @@ class Group < ApplicationRecord
 
   has_many :affiliates, through: :affiliations, source: 'affiliated'
   has_many :affiliated_with, through: :affiliations_with, source: 'group'
-
+ #this doesn't seem right - sync_logs table is empty
   has_many :sync_logs
 
   has_and_belongs_to_many :events, dependent: :destroy
@@ -60,7 +60,7 @@ class Group < ApplicationRecord
       end
 
       import_tags
-      self.update_attribute(:synced_at, synced_time)
+      self.update_attribute(:synced_at, :synced_time)
       self.sync_logs.create(
         data: {
           events: events_logs,
