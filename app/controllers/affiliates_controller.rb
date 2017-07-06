@@ -1,7 +1,7 @@
 class AffiliatesController < ApplicationController
   before_action :authenticate_person!
 
-  before_action :authorize_group_access
+  # before_action :authorize_group_access
 
   def index
     group = current_person.groups.find(params[:group_id])
@@ -26,6 +26,26 @@ class AffiliatesController < ApplicationController
       end
     end
   end
+
+  # POST /affiliates
+  # POST /affiliates.json
+  def create
+    @affiliates = Affiliation.new({
+      affiliated_id: params["affiliation"]["affiliated_id"],
+      group_id: params[:group_id]
+    })
+# todo check to see if duplicate entry exists before saving
+    respond_to do |format|
+      if @affiliates.save
+        format.html { redirect_to groups_url, notice: 'Affilation was successfully created.' }
+        format.json { render :show, status: :created, location: @affiliates }
+      else
+        format.html { render :new }
+        format.json { render json: @affiliates.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 
   private
 

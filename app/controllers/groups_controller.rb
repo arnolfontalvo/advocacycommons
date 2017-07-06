@@ -43,7 +43,9 @@ class GroupsController < ApplicationController
   end
 
   # GET /groups/1/edit
+  #     redirect_to :back, status: 401 unless current_user.organizer
   def edit
+    @groups = Group.all
   end
 
   # POST /groups
