@@ -15,6 +15,11 @@ class Ability
         attendance.person.groups.include?(current_group)
       end
 
+      can :manage, Affilation do |affiliates|
+        current_user.admin? ||  Membership.organizer.exists?(person: current_user, group: group) || 
+          (Membership.organizer.exists?(person: current_user, group: current_group) && current_group.affiliates.include?(group))
+      end
+
       can :manage, Group do |group|
         current_user.admin? ||  Membership.organizer.exists?(person: current_user, group: group) || 
           (Membership.organizer.exists?(person: current_user, group: current_group) && current_group.affiliates.include?(group))
