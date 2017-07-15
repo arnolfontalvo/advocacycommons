@@ -8,7 +8,7 @@ module Api::ActionNetwork::Import
 
   def request_resources_from_action_network(uri, group)
     retries ||= 0
-
+    
     collection = collection_class.new
     client = representer_class.new(collection)
     client.get(uri: uri, as: 'application/json') do |request|

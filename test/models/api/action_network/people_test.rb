@@ -37,7 +37,9 @@ class Api::ActionNetwork::PeopleTest < ActiveSupport::TestCase
       to_return(body: File.read(Rails.root.join('test', 'fixtures', 'files', 'people_page_2.json')))
 
     assert_difference 'Person.count', 2 do
-      Api::ActionNetwork::People.import!(group)
+      perform_enqueued_jobs do
+        Api::ActionNetwork::People.import!(group)
+      end
     end
 
     assert_equal Time.zone.local(2016), person_not_from_action_network.reload.updated_at
