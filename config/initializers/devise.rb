@@ -254,6 +254,9 @@ Devise.setup do |config|
   config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'],
                   scope: 'user_events,rsvp_event'
 
+  config.openid_authenticatable do |openid|
+    openid.identity_url = 'http://foobar.com'
+  end
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
