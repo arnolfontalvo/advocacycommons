@@ -91,7 +91,13 @@ class Person < ApplicationRecord
   end
 
   def primary_phone_number
-    phone_numbers.detect(&:primary?)&.number
+    phone_number = phone_numbers.detect(&:primary?)&.number
+    
+    if phone_numbers.any?
+      phone_number = phone_numbers.first.number unless phone_number 
+    end
+
+    return phone_number || ''
   end
 
   def primary_phone_number=(number)
@@ -237,6 +243,17 @@ class Person < ApplicationRecord
     return [:encrypted_password]
   end
 
+
+  def custom_field_to_phone_number
+    potential_fields = [ 'Phone Number', 'Phone', 'phone', "2 Phone"]
+
+    potential_fields.each do |field_name|
+      unless custom_fields[field_name].nil?  
+        phone_numbers.create(:number => custom_fields[field_name])
+      end
+    end
+  end
+
   private
 
   def generate_update_events
@@ -247,6 +264,6 @@ class Person < ApplicationRecord
   def record_update_event(name)
     ::NewRelic::Agent.record_custom_event(name, id: id, email: primary_email_address)
   end
-
+  
 
 end
