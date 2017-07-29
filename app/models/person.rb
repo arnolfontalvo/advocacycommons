@@ -254,6 +254,36 @@ class Person < ApplicationRecord
     end
   end
 
+  def self.openid_required_fields
+    ["email", "http://openid.net/schema/contact/internet/email",]
+  end
+
+  def self.openid_optional_fields
+    ["first", "last", "primary_phone_number", "http://openid.net/schema/namePerson/first", "http://openid.net/schema/namePerson/last", "http://openid.net/schema/contact/phone/default"]
+  end
+
+  def openid_fields=(fields)
+    fields.each do |key, value|
+      # Some AX providers can return multiple values per key
+      if value.is_a? Array
+        value = value.first
+      end
+
+      case key.to_s
+      when "first", "http://openid.net/schema/namePerson/first"
+        self.given_name = value
+      when "last", "http://openid.net/schema/namePerson/last"
+        self.family_name = value
+      when "email", "http://openid.net/schema/contact/internet/email"
+        self.email = value
+      when "primary_phone_number", "http://openid.net/schema/contact/phone/default"
+        self.primary_phone_number = value
+      else
+        logger.error "Unknown OpenID field: #{key}"
+      end
+    end
+  end
+
   private
 
   def generate_update_events
