@@ -221,12 +221,16 @@ class Person < ApplicationRecord
     
       {}.tap do |feed|
       
-      created, updated = people_version.partition { |version| version.event == 'create' }
-      
-      feed[:created] = created.map { |version|
-         to_activity_json(version) 
-       }
-      feed[:updated] = updated.map { |version| to_activity_json(version) }
+      #ugly way
+
+      #if Membership.find(:person_id => version.item_id, :group => group).puck(:id) then 
+        created, updated = people_version.partition { |version| version.event == 'create' }
+        
+        feed[:created] = created.map { |version|
+          to_activity_json(version) 
+        }
+        feed[:updated] = updated.map { |version| to_activity_json(version) }
+      #end
     end
   end
 

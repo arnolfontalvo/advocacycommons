@@ -13,10 +13,18 @@ class ApplicationController < ActionController::Base
     return group || current_user.groups.first
   end
 
+
+  #we shoud probably have  role of affiliated organizer
   def current_role
-    Membership.where(
-      person_id: current_person.id, group_id: current_group.id
-    ).first.role
+    memberships = []
+    memberships + current_group.memberships.where(:person => current_person)
+    memberships + Membership.where(:group_id => current_group.affiliated_with.pluck(:id), :person => current_person)
+    role = 'member'
+    memberships.each {|membership|
+      role = membership.role == 'organizer' ? 'organizer' : membership.role
+    }
+
+    return role
   end
 
   def validate_admin_permission

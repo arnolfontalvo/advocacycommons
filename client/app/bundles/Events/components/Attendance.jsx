@@ -31,7 +31,7 @@ class Attendance extends Component {
       const fbIdentifier = _.find(identifiers, (identifier) => {
         return identifier.indexOf('facebook') >= 0;
       });
-
+      
       return <FacebookLink id={fbIdentifier} />;
     }
   }
